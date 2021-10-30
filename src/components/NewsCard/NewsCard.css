@@ -60,6 +60,9 @@
     line-height: 22px;
     color: #44444d;
   }
+  .short{
+    color: black;
+  }
   
   @media (max-width: 800px) {
     .newsCard {

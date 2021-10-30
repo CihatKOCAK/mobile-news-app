@@ -10,17 +10,17 @@ import Footer from './components/Footer/Footer';
 function App() {
 
   const [category, setCategory] = useState("general");
+  const [country, setCountry] = useState("TR");
   const [newsArray, setNewsArray] = useState([]);
   const [newsResults, setNewsResults] = useState();
   const [loadMore, setLoadMore] = useState(20);
-
+  
+  
 
   const newsApi = async () => {
     try {
-      const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-      //us -> america  de -> almanya  ru -> rusya tr -> tr
       const news = await axios.get(
-        `https://${proxyUrl}newsapi.org/v2/top-headlines?country=tr&apiKey=${apikey}&category=${category}&pageSize=${loadMore}`
+        `https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${apikey}&pageSize=${loadMore}&category=${category}`
         );
       //console.log(news.data.articles);
       setNewsArray(news.data.articles);
@@ -29,15 +29,20 @@ function App() {
       console.log(error);
     }
   }
-  console.log(newsArray);
+  
   useEffect(() => {
     newsApi();
-    // eslint-disable-next-line
-  }, [newsResults, category, loadMore]);
+    window.scrollTo(0, 0);
+  }, [newsResults, category, country]);
+
+  useEffect(() => {
+    newsApi();
+  }, [loadMore])
 
   return (
-    <div className="App">
-      <NavNews setCategory={setCategory} />
+    
+    <div className="App" id="#home">
+      <NavNews setCategory={setCategory} setCountry={setCountry} country = {country}/>
       <NewsContent
         loadMore={loadMore}
         setLoadMore={setLoadMore}

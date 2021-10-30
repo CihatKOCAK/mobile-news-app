@@ -4,11 +4,11 @@ import './NavNews.css';
 import HamburgerDrawner from './HamburgerDrawner';
 
 
-const NavNews = ({setCategory}) => {
+const NavNews = ({setCategory, setCountry, country}) => {
     return (
         <div className="nav">
             <div className="icon">
-                <HamburgerDrawner setCategory={setCategory} />
+                <HamburgerDrawner setCategory={setCategory} setCountry={setCountry} country = {country} />
             </div>
             <img
             style={{cursor:"pointer"}} 
@@ -18,6 +18,7 @@ const NavNews = ({setCategory}) => {
 
             />
         </div>
+       
     )
 }
 

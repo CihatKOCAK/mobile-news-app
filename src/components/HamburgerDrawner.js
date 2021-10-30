@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { makeStyles } from "@material-ui/core/styles";
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
@@ -11,22 +10,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import categories from '../data/category'
+import countries from '../data/countries';
 
 
 
 
-const useStyles = makeStyles({
-  list: {
-    width: 300, // changed
-    paddingLeft: 10, // changed
-    paddingRight: 5, //changed
-  },
-  fullList: {
-    width: "auto",
-  },
-});
 
-export default function SwipeableTemporaryDrawer({setCategory}) {
+export default function SwipeableTemporaryDrawer({ setCategory, setCountry, country }) {
   const [state, setState] = React.useState({
     left: false,
   });
@@ -64,14 +54,29 @@ export default function SwipeableTemporaryDrawer({setCategory}) {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
+
       <List>
-       <ListItem> Categories </ListItem>
+        <ListItem> {categories[country]["country"]} </ListItem>
+      </List>
+      <Divider />
+      <List>
+      {countries.map((text) => (
+          <ListItem button key={text} onClick={() => setCountry(text)}>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+       </List>
+
+      <List>
+        <ListItem>  {categories[country]["category"]} </ListItem>
       </List>
 
       <Divider />
       <List>
-        {categories.map((text, index) => (
-          <ListItem button key={text} onClick ={() => setCategory(text)}>
+     
+        {//for text
+          Object.keys(categories[country]["categories"][0]).map((text) => (
+          <ListItem button key={text} onClick={() => setCategory(categories[country]["categories"][0][text]) /*for api key*/}>
             <ListItemText primary={text} />
           </ListItem>
         ))}
